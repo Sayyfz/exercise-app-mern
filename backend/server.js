@@ -1,5 +1,6 @@
 import express from 'express';
 import workoutRoutes from './routes/workouts.js';
+import mongoose from 'mongoose';
 //loads the .env file variables into the process.env object
 import dotenv from 'dotenv'; 
 
@@ -18,8 +19,12 @@ app.use((req, res, next) => {
 // routes
 app.use('/api/workouts', workoutRoutes);
 
+// Mongo Connection
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => {
+        
+        app.listen(port, () => {
+            console.log(`Listening on port: ${port}`);
+        });
+    }).catch(error => console.log(error));
 
-
-app.listen(port, () => {
-    console.log(`Listening on port: ${port}`);
-});
