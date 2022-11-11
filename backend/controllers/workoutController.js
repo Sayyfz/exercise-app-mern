@@ -23,6 +23,23 @@ export const getWorkoutById = async (req, res) => {
 };
 
 export const createWorkout = async (req, res) => {
+
+    let emptyFields = [];
+
+    if(!req.body.title) {
+        emptyFields.push('title');
+    };
+    if(!req.body.load) {
+        emptyFields.push('load');
+    };
+    if(!req.body.reps) {
+        emptyFields.push('reps');
+    };
+
+    if(emptyFields.length > 0) {
+        return res.status(400).json({ error: 'Please fill in all the fields',
+        emptyFields });
+    };
     
     try {
         // try to create the workout document based on the passed data 
