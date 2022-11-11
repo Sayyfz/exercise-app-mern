@@ -7,17 +7,19 @@ const Home = () => {
 
     const { workouts, dispatch } = useWorkoutsContext();
 
-    const fetchWorkouts = async() => {
-        const res = await fetch('/api/workouts');
-        const json = await res.json();
-        if(res.ok) {
-            dispatch({type: 'SET_WORKOUTS', payload: json});
-        };
-    };
+    
 
     useEffect(() => {
+        const fetchWorkouts = async() => {
+            const res = await fetch('/api/workouts');
+            const json = await res.json();
+            if(res.ok) {
+                dispatch({type: 'SET_WORKOUTS', payload: json});
+            };
+        };
+
         fetchWorkouts();
-    }, []);
+    }, [dispatch]);
 
     return (  
         <div className="home">
